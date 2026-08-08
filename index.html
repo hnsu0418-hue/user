@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트폰 중독 자가진단</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .question { margin-bottom: 20px; font-weight: bold; font-size: 1.1em; }
+        .options { margin-bottom: 30px; }
+        .option-label { display: block; margin: 10px 0; padding: 10px; background-color: #f1f2f6; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .option-label:hover { background-color: #dfe4ea; }
+        input[type="radio"] { margin-right: 10px; }
+        button { display: block; width: 100%; padding: 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; transition: 0.3s; }
+        button:hover { background-color: #2980b9; }
+        #result-screen { display: none; text-align: center; }
+        .score-display { font-size: 2em; font-weight: bold; color: #e74c3c; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="survey-screen">
+    <h1>📱 스마트폰 중독 자가진단</h1>
+    <form id="survey-form">
+        <!-- 💡 여기서부터 문항과 점수를 수정할 수 있습니다 -->
+        
+        <div class="question">1. 스마트폰이 없으면 불안함을 느낀다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q1" value="0" required> 전혀 아니다 (0점)</label>
+            <label class="option-label"><input type="radio" name="q1" value="1"> 가끔 그렇다 (1점)</label>
+            <label class="option-label"><input type="radio" name="q1" value="2"> 자주 그렇다 (2점)</label>
+            <label class="option-label"><input type="radio" name="q1" value="3"> 항상 그렇다 (3점)</label>
+        </div>
+
+        <div class="question">2. 잠들기 직전까지 스마트폰을 사용한다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q2" value="0" required> 전혀 아니다 (0점)</label>
+            <label class="option-label"><input type="radio" name="q2" value="1"> 가끔 그렇다 (1점)</label>
+            <label class="option-label"><input type="radio" name="q2" value="2"> 자주 그렇다 (2점)</label>
+            <label class="option-label"><input type="radio" name="q2" value="3"> 항상 그렇다 (3점)</label>
+        </div>
+
+        <!-- 문항을 더 추가하려면 위 구조를 그대로 복사해서 q3, q4로 숫자만 바꿔 붙여넣으세요 -->
+        
+        <button type="button" onclick="calculateScore()">결과 확인하기</button>
+    </form>
+</div>
+
+<div class="container" id="result-screen">
+    <h1>진단 결과</h1>
+    <div class="score-display">총점: <span id="total-score">0</span>점</div>
+    <h2 id="result-title"></h2>
+    <p id="result-desc"></p>
+    <button onclick="location.reload()" style="margin-top: 20px;">다시 하기</button>
+</div>
+
+<script>
+    function calculateScore() {
+        const form = document.getElementById('survey-form');
+        
+        // 모든 문항에 답했는지 확인
+        if (!form.checkValidity()) {
+            alert('모든 문항에 답변해 주세요!');
+            return;
+        }
+
+        // 점수 합산
+        let totalScore = 0;
+        const formData = new FormData(form);
+        for (let value of formData.values()) {
+            totalScore += parseInt(value);
+        }
+
+        // 화면 전환
+        document.getElementById('survey-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('total-score').innerText = totalScore;
+
+        // 💡 여기서 점수 구간별 결과 메시지를 수정할 수 있습니다
+        let title = "";
+        let desc = "";
+
+        if (totalScore >= 5) {
+            title = "🚨 고위험군입니다.";
+            desc = "스마트폰 사용 시간을 의도적으로 줄일 필요가 있습니다.";
+        } else if (totalScore >= 3) {
+            title = "⚠️ 주의가 필요합니다.";
+            desc = "스마트폰 의존도가 조금 있는 편입니다. 취미 생활을 늘려보세요.";
+        } else {
+            title = "✅ 정상입니다.";
+            desc = "건강하게 스마트폰을 사용하고 계십니다!";
+        }
+
+        document.getElementById('result-title').innerText = title;
+        document.getElementById('result-desc').innerText = desc;
+    }
+</script>
+
+</body>
+</html>
+
+
