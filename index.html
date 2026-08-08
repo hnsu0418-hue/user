@@ -3,102 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>성심교회 스마트폰 중독 자가진단</title>
+    <title>성인 스마트폰 중독 척도 (S-척도)</title>
     <style>
-        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
-        .container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        .question { margin-bottom: 20px; font-weight: bold; font-size: 1.1em; }
-        .options { margin-bottom: 30px; }
-        .option-label { display: block; margin: 10px 0; padding: 10px; background-color: #f1f2f6; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .option-label:hover { background-color: #dfe4ea; }
-        input[type="radio"] { margin-right: 10px; }
-        button { display: block; width: 100%; padding: 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; transition: 0.3s; }
-        button:hover { background-color: #2980b9; }
+        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; color: #333; max-width: 700px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 0.9em; }
+        .question { margin-top: 25px; margin-bottom: 10px; font-weight: bold; font-size: 1.05em; color: #34495e; }
+        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+        .option-label { display: block; padding: 12px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+        .option-label:hover { background-color: #e9ecef; }
+        input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+        button { display: block; width: 100%; padding: 15px; background-color: #27ae60; color: white; border: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 30px; }
+        button:hover { background-color: #219150; }
         #result-screen { display: none; text-align: center; }
-        .score-display { font-size: 2em; font-weight: bold; color: #e74c3c; margin: 20px 0; }
+        .score-box { background-color: #f1f2f6; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .total-score { font-size: 2em; font-weight: bold; color: #e74c3c; margin-bottom: 10px; }
+        .factor-scores { font-size: 1em; color: #555; text-align: left; display: inline-block; }
+        h2 { color: #2980b9; margin-top: 20px; }
+        .desc { text-align: left; padding: 15px; background-color: #fff9c4; border-radius: 5px; margin-top: 20px; border-left: 5px solid #f39c12; }
     </style>
 </head>
 <body>
 
 <div class="container" id="survey-screen">
-    <h1>📱 성심교회 스마트폰 중독 자가진단</h1>
+    <h1>📱 성인 스마트폰 중독 척도</h1>
+    <div class="subtitle">S-척도 기준 자가진단 (총 15문항)</div>
     <form id="survey-form">
-        <!-- 💡 여기서부터 문항과 점수를 수정할 수 있습니다 -->
         
-        <div class="question">1. 스마트폰이 없으면 불안함을 느낀다.</div>
+        <!-- 💡 표준 문항: 1점, 2점, 3점, 4점 순서 -->
+        <div class="question">1. 스마트폰의 지나친 사용으로 학교성적이나 업무능률이 떨어진다.</div>
         <div class="options">
-            <label class="option-label"><input type="radio" name="q1" value="0" required> 전혀 아니다 (0점)</label>
-            <label class="option-label"><input type="radio" name="q1" value="1"> 가끔 그렇다 (1점)</label>
-            <label class="option-label"><input type="radio" name="q1" value="2"> 자주 그렇다 (2점)</label>
-            <label class="option-label"><input type="radio" name="q1" value="3"> 항상 그렇다 (3점)</label>
+            <label class="option-label"><input type="radio" name="q1" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q1" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q1" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q1" value="4"> 매우 그렇다</label>
         </div>
 
-        <div class="question">2. 잠들기 직전까지 스마트폰을 사용한다.</div>
+        <div class="question">2. 스마트폰을 사용하지 못하면 온 세상을 잃을 것 같은 생각이 든다.</div>
         <div class="options">
-            <label class="option-label"><input type="radio" name="q2" value="0" required> 전혀 아니다 (0점)</label>
-            <label class="option-label"><input type="radio" name="q2" value="1"> 가끔 그렇다 (1점)</label>
-            <label class="option-label"><input type="radio" name="q2" value="2"> 자주 그렇다 (2점)</label>
-            <label class="option-label"><input type="radio" name="q2" value="3"> 항상 그렇다 (3점)</label>
+            <label class="option-label"><input type="radio" name="q2" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q2" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q2" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q2" value="4"> 매우 그렇다</label>
         </div>
 
-        <!-- 문항을 더 추가하려면 위 구조를 그대로 복사해서 q3, q4로 숫자만 바꿔 붙여넣으세요 -->
+        <div class="question">3. 스마트폰을 사용할 때 그만해야지 라고 생각은 하면서도 계속한다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q3" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q3" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q3" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q3" value="4"> 매우 그렇다</label>
+        </div>
+
+        <!--⚠️ 역채점 문항 (4, 10, 15번): 4점, 3점, 2점, 1점 순서 -->
+        <div class="question">4. 스마트폰이 없어도 불안하지 않다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q4" value="4" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q4" value="3"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q4" value="2"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q4" value="1"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">5. 수시로 스마트폰을 사용하다가 지적을 받은 적이 있다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q5" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q5" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q5" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q5" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">6. 가족이나 친구들과 함께 있는 것보다 스마트폰을 사용하고 있는 것이 더 즐겁다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q6" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q6" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q6" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q6" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">7. 스마트폰 사용시간을 줄이려고 해보았지만 실패한다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q7" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q7" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q7" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q7" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">8. 스마트폰을 사용할 수 없게 된다면 견디기 힘들 것이다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q8" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q8" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q8" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q8" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">9. 스마트폰을 너무 자주 또는 오래한다고 가족이나 친구들로부터 불평을 들은 적이 있다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q9" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q9" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q9" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q9" value="4"> 매우 그렇다</label>
+        </div>
+
+        <!-- ⚠️ 역채점 문항 -->
+        <div class="question">10. 스마트폰 사용에 많은 시간을 보내지 않는다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q10" value="4" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q10" value="3"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q10" value="2"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q10" value="1"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">11. 스마트폰이 옆에 없으면, 하루 종일 일(또는 공부)이 손에 안 잡힌다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q11" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q11" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q11" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q11" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">12. 스마트폰을 사용하느라 지금 하고 있는 일(공부)에 집중이 안 된 적이 있다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q12" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q12" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q12" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q12" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">13. 스마트폰 사용에 많은 시간을 보내는 것이 습관화되었다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q13" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q13" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q13" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q13" value="4"> 매우 그렇다</label>
+        </div>
+
+        <div class="question">14. 스마트폰이 없으면 안절부절 못하고 초조해진다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q14" value="1" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q14" value="2"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q14" value="3"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q14" value="4"> 매우 그렇다</label>
+        </div>
+
+        <!-- ⚠️ 역채점 문항 -->
+        <div class="question">15. 스마트폰 사용이 지금 하고 있는 일(공부)에 방해가 되지 않는다.</div>
+        <div class="options">
+            <label class="option-label"><input type="radio" name="q15" value="4" required> 전혀 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q15" value="3"> 그렇지 않다</label>
+            <label class="option-label"><input type="radio" name="q15" value="2"> 그렇다</label>
+            <label class="option-label"><input type="radio" name="q15" value="1"> 매우 그렇다</label>
+        </div>
         
-        <button type="button" onclick="calculateScore()">결과 확인하기</button>
+        <button type="button" onclick="calculateScore()">진단 결과 확인하기</button>
     </form>
 </div>
 
 <div class="container" id="result-screen">
     <h1>진단 결과</h1>
-    <div class="score-display">총점: <span id="total-score">0</span>점</div>
+    <div class="score-box">
+        <div class="total-score">총점: <span id="total-score">0</span>점</div>
+        <div class="factor-scores">
+            • 일상생활장애 요인: <span id="f1-score">0</span>점<br>
+            • 금단 요인: <span id="f3-score">0</span>점<br>
+            • 내성 요인: <span id="f4-score">0</span>점
+        </div>
+    </div>
     <h2 id="result-title"></h2>
-    <p id="result-desc"></p>
-    <button onclick="location.reload()" style="margin-top: 20px;">다시 하기</button>
+    <div class="desc" id="result-desc"></div>
+    <button onclick="location.reload()" style="margin-top: 25px; background-color: #7f8c8d;">처음으로 돌아가기</button>
 </div>
 
 <script>
     function calculateScore() {
         const form = document.getElementById('survey-form');
         
-        // 모든 문항에 답했는지 확인
         if (!form.checkValidity()) {
             alert('모든 문항에 답변해 주세요!');
             return;
         }
 
-        // 점수 합산
-        let totalScore = 0;
         const formData = new FormData(form);
-        for (let value of formData.values()) {
-            totalScore += parseInt(value);
-        }
+        const getVal = (q) => parseInt(formData.get(q));
 
-        // 화면 전환
+        // 모든 문항 값 가져오기
+        const t1 = getVal('q1'); const t2 = getVal('q2'); const t3 = getVal('q3');
+        const t4 = getVal('q4'); const t5 = getVal('q5'); const t6 = getVal('q6');
+        const t7 = getVal('q7'); const t8 = getVal('q8'); const t9 = getVal('q9');
+        const t10 = getVal('q10'); const t11 = getVal('q11'); const t12 = getVal('q12');
+        const t13 = getVal('q13'); const t14 = getVal('q14'); const t15 = getVal('q15');
+
+        // 합계 및 요인별 점수 계산
+        const total = t1+t2+t3+t4+t5+t6+t7+t8+t9+t10+t11+t12+t13+t14+t15;
+        const f1 = t1 + t5 + t9 + t12 + t15; // 1요인: 일상생활장애
+        const f3 = t4 + t8 + t11 + t14; // 3요인: 금단
+        const f4 = t3 + t7 + t10 + t13; // 4요인: 내성
+
         document.getElementById('survey-screen').style.display = 'none';
         document.getElementById('result-screen').style.display = 'block';
-        document.getElementById('total-score').innerText = totalScore;
+        
+        document.getElementById('total-score').innerText = total;
+        document.getElementById('f1-score').innerText = f1;
+        document.getElementById('f3-score').innerText = f3;
+        document.getElementById('f4-score').innerText = f4;
 
-        // 💡 여기서 점수 구간별 결과 메시지를 수정할 수 있습니다
         let title = "";
         let desc = "";
 
-        if (totalScore >= 5) {
-            title = "🚨 고위험군입니다.";
-            desc = "스마트폰 사용 시간을 의도적으로 줄일 필요가 있습니다.";
-        } else if (totalScore >= 3) {
-            title = "⚠️ 주의가 필요합니다.";
-            desc = "스마트폰 의존도가 조금 있는 편입니다. 취미 생활을 늘려보세요.";
+        // 판정 로직
+        if (total >= 44 || (f1 >= 15 && f3 >= 13 && f4 >= 13)) {
+            title = "🚨 고위험 사용자군";
+            desc = "스마트폰 사용으로 인하여 일상생활에서 심각한 장애를 보이면서 내성 및 금단 현상이 나타납니다. 스마트폰으로 이루어지는 대인관계가 대부분이며, 현실 생활에서도 습관적으로 사용하게 되어 학업이나 대인관계를 제대로 수행할 수 없습니다. 심리적으로 불안정감, 우울한 기분 등이 흔하며 자기조절에 심각한 어려움을 보입니다.<br><br><strong>▷ 스마트폰 중독 경향성이 매우 높으므로 관련 기관의 전문적 지원과 도움이 요청됩니다.</strong>";
+        } else if ((total >= 40 && total <= 43) || f1 >= 14) {
+            title = "⚠️ 잠재적 위험 사용자군";
+            desc = "고위험 사용자군에 비해 경미한 수준이지만 일상생활에서 장애를 보이며, 필요이상으로 스마트폰 사용시간이 늘어나고 집착을 하게 됩니다. 다분히 계획적이지 못하고 자기조절에 어려움을 보이며 자신감도 낮게 나타날 수 있습니다.<br><br><strong>▷ 스마트폰 과다 사용의 위험을 깨닫고 스스로 조절하고 계획적인 사용을 하도록 노력해야 하며, 스마트폰 중독에 대한 주의가 요망됩니다.</strong>";
         } else {
-            title = "✅ 정상입니다.";
-            desc = "건강하게 스마트폰을 사용하고 계십니다!";
+            title = "✅ 일반 사용자군";
+            desc = "대부분이 스마트폰 중독문제가 없다고 느끼며, 자기행동을 관리한다고 생각합니다. 주변 사람들과의 대인관계에서도 자신이 충분한 지원을 얻을 수 있다고 느끼며, 심각한 외로움이나 곤란감을 느끼지 않습니다.<br><br><strong>▷ 때때로 스마트폰의 건전한 활용에 대하여 자기 점검을 지속적으로 수행하세요.</strong>";
         }
 
         document.getElementById('result-title').innerText = title;
-        document.getElementById('result-desc').innerText = desc;
+        document.getElementById('result-desc').innerHTML = desc;
     }
 </script>
 
 </body>
 </html>
-
-
