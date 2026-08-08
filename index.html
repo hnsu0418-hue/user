@@ -5,40 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스마트폰 중독 자가진단 (S-척도)</title>
     <style>
-        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; color: #333; max-width: 700px; margin: 0 auto; padding: 20px; line-height: 1.6; }
-        .container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h1 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 0.9em; }
+        /* 모바일 최적화 및 단어 중간 끊김 방지(keep-all) */
+        body { 
+            font-family: 'Malgun Gothic', sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 15px; 
+            line-height: 1.5; 
+            word-break: keep-all; 
+        }
+        .container { 
+            background-color: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            margin-bottom: 20px; 
+        }
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            font-size: 1.5em; 
+            margin-bottom: 5px; 
+        }
+        .subtitle { 
+            text-align: center; 
+            color: #7f8c8d; 
+            margin-bottom: 25px; 
+            font-size: 0.9em; 
+        }
         
-        /* 메인 선택 화면 스타일 */
-        #selection-screen { text-align: center; padding: 50px 20px; }
-        .select-btn { display: inline-block; width: 45%; margin: 10px; padding: 25px; font-size: 1.3em; font-weight: bold; color: white; border: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        /* 시작 화면 버튼 스타일 (모바일에서 세로로 배치하여 글자 끊김 방지) */
+        #selection-screen { text-align: center; padding: 30px 10px; }
+        .select-btn { 
+            display: block; 
+            width: 100%; 
+            margin: 15px 0; 
+            padding: 18px; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
         .btn-adult { background-color: #3498db; }
-        .btn-adult:hover { background-color: #2980b9; }
+        .btn-adult:active { background-color: #2980b9; }
         .btn-teen { background-color: #f39c12; }
-        .btn-teen:hover { background-color: #d68910; }
+        .btn-teen:active { background-color: #d68910; }
         
         /* 설문 화면 스타일 */
         .survey-screen { display: none; }
-        .question { margin-top: 25px; margin-bottom: 10px; font-weight: bold; font-size: 1.05em; color: #34495e; }
-        .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        .option-label { display: block; padding: 12px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; cursor: pointer; transition: 0.2s; }
-        .option-label:hover { background-color: #e9ecef; }
-        input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
-        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #27ae60; color: white; border: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 30px; }
-        .submit-btn:hover { background-color: #219150; }
-        .back-btn { display: inline-block; margin-bottom: 20px; color: #7f8c8d; text-decoration: none; cursor: pointer; font-size: 0.9em; }
-        .back-btn:hover { text-decoration: underline; }
+        .question { 
+            margin-top: 25px; 
+            margin-bottom: 12px; 
+            font-weight: bold; 
+            font-size: 1.05em; 
+            color: #34495e; 
+        }
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+        }
+        .option-label { 
+            display: flex; 
+            align-items: center; 
+            padding: 12px 15px; 
+            background-color: #f8f9fa; 
+            border: 1px solid #dee2e6; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 0.95em;
+            transition: 0.2s; 
+        }
+        .option-label:active { background-color: #e9ecef; }
+        input[type="radio"] { 
+            margin-right: 12px; 
+            transform: scale(1.2); 
+            flex-shrink: 0;
+        }
+        .submit-btn { 
+            display: block; 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 30px; 
+        }
+        .back-btn { 
+            display: inline-block; 
+            margin-bottom: 15px; 
+            color: #7f8c8d; 
+            text-decoration: none; 
+            cursor: pointer; 
+            font-size: 0.9em; 
+        }
 
         /* 결과 화면 스타일 */
         #result-screen { display: none; text-align: center; }
-        .score-box { background-color: #f1f2f6; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .total-score { font-size: 2em; font-weight: bold; color: #e74c3c; margin-bottom: 10px; }
-        .factor-scores { font-size: 1em; color: #555; text-align: left; display: inline-block; }
-        h2 { color: #2980b9; margin-top: 20px; }
-        .desc { text-align: left; padding: 15px; background-color: #fff9c4; border-radius: 5px; margin-top: 20px; border-left: 5px solid #f39c12; }
-        .restart-btn { padding: 15px 30px; background-color: #95a5a6; color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; margin-top: 25px; transition: 0.3s;}
-        .restart-btn:hover { background-color: #7f8c8d; }
+        .score-box { 
+            background-color: #f1f2f6; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 20px 0; 
+        }
+        .total-score { 
+            font-size: 1.8em; 
+            font-weight: bold; 
+            color: #e74c3c; 
+            margin-bottom: 10px; 
+        }
+        .factor-scores { 
+            font-size: 0.95em; 
+            color: #555; 
+            text-align: left; 
+            display: inline-block; 
+            line-height: 1.6;
+        }
+        h2 { color: #2980b9; margin-top: 20px; font-size: 1.3em; }
+        .desc { 
+            text-align: left; 
+            padding: 15px; 
+            background-color: #fff9c4; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            border-left: 5px solid #f39c12; 
+            font-size: 0.95em;
+        }
+        .restart-btn { 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #95a5a6; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1.1em; 
+            cursor: pointer; 
+            margin-top: 25px; 
+        }
     </style>
 </head>
 <body>
@@ -47,8 +161,8 @@
 <div class="container" id="selection-screen">
     <h1>📱 스마트폰 중독 자가진단</h1>
     <div class="subtitle">해당하는 대상을 선택해 주세요.</div>
-    <button class="select-btn btn-adult" onclick="startSurvey('adult')">👨 성인용<br><span style="font-size:0.6em; font-weight:normal;">(만 20세 이상)</span></button>
-    <button class="select-btn btn-teen" onclick="startSurvey('teen')">👦 청소년용<br><span style="font-size:0.6em; font-weight:normal;">(초·중·고등학생)</span></button>
+    <button class="select-btn btn-adult" onclick="startSurvey('adult')">👨 성인용 <span style="font-size:0.7em; opacity:0.9;">(만 20세 이상)</span></button>
+    <button class="select-btn btn-teen" onclick="startSurvey('teen')">👦 청소년용 <span style="font-size:0.7em; opacity:0.9;">(초·중·고등학생)</span></button>
 </div>
 
 <!-- 2-A. 성인용 설문 화면 -->
@@ -78,8 +192,7 @@
             <label class="option-label"><input type="radio" name="aq3" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="aq3" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 성인 4번 역채점 -->
-        <div class="question">4. 스마트폰이 없어도 불안하지 않다.</div>
+        <div class="question">4. 스마트폰이 없어도 불안하지 않다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="aq4" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="aq4" value="3"> 그렇지 않다</label>
@@ -121,8 +234,7 @@
             <label class="option-label"><input type="radio" name="aq9" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="aq9" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 성인 10번 역채점 -->
-        <div class="question">10. 스마트폰 사용에 많은 시간을 보내지 않는다.</div>
+        <div class="question">10. 스마트폰 사용에 많은 시간을 보내지 않는다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="aq10" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="aq10" value="3"> 그렇지 않다</label>
@@ -157,8 +269,7 @@
             <label class="option-label"><input type="radio" name="aq14" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="aq14" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 성인 15번 역채점 -->
-        <div class="question">15. 스마트폰 사용이 지금 하고 있는 일(공부)에 방해가 되지 않는다.</div>
+        <div class="question">15. 스마트폰 사용이 지금 하고 있는 일(공부)에 방해가 되지 않는다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="aq15" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="aq15" value="3"> 그렇지 않다</label>
@@ -224,8 +335,7 @@
             <label class="option-label"><input type="radio" name="tq7" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="tq7" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 청소년 8번 역채점 -->
-        <div class="question">8. 스마트폰 사용시간을 스스로 조절할 수 있다.</div>
+        <div class="question">8. 스마트폰 사용시간을 스스로 조절할 수 있다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="tq8" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="tq8" value="3"> 그렇지 않다</label>
@@ -239,8 +349,7 @@
             <label class="option-label"><input type="radio" name="tq9" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="tq9" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 청소년 10번 역채점 -->
-        <div class="question">10. 스마트폰이 없어도 불안하지 않다.</div>
+        <div class="question">10. 스마트폰이 없어도 불안하지 않다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="tq10" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="tq10" value="3"> 그렇지 않다</label>
@@ -261,8 +370,7 @@
             <label class="option-label"><input type="radio" name="tq12" value="3"> 그렇다</label>
             <label class="option-label"><input type="radio" name="tq12" value="4"> 매우 그렇다</label>
         </div>
-        <!-- 청소년 13번 역채점 -->
-        <div class="question">13. 스마트폰 사용이 지금 하고 있는 공부에 방해가 되지 않는다.</div>
+        <div class="question">13. 스마트폰 사용이 지금 하고 있는 공부에 방해가 되지 않는다. (역채점)</div>
         <div class="options">
             <label class="option-label"><input type="radio" name="tq13" value="4" required> 전혀 그렇지 않다</label>
             <label class="option-label"><input type="radio" name="tq13" value="3"> 그렇지 않다</label>
@@ -304,7 +412,6 @@
 </div>
 
 <script>
-    // 화면 전환 함수
     function startSurvey(type) {
         document.getElementById('selection-screen').style.display = 'none';
         if(type === 'adult') {
@@ -312,9 +419,9 @@
         } else {
             document.getElementById('teen-screen').style.display = 'block';
         }
+        window.scrollTo(0, 0);
     }
 
-    // 결과 화면 출력 함수
     function showResult(total, f1, f3, f4, title, desc, target) {
         document.getElementById('adult-screen').style.display = 'none';
         document.getElementById('teen-screen').style.display = 'none';
@@ -327,9 +434,9 @@
         document.getElementById('f4-score').innerText = f4;
         document.getElementById('result-title').innerText = title;
         document.getElementById('result-desc').innerHTML = desc;
+        window.scrollTo(0, 0);
     }
 
-    // 성인용 채점 로직
     function calculateAdultScore() {
         const form = document.getElementById('adult-form');
         if (!form.checkValidity()) { alert('모든 문항에 답변해 주세요!'); return; }
@@ -360,7 +467,6 @@
         showResult(total, f1, f3, f4, title, desc, "성인");
     }
 
-    // 청소년용 채점 로직
     function calculateTeenScore() {
         const form = document.getElementById('teen-form');
         if (!form.checkValidity()) { alert('모든 문항에 답변해 주세요!'); return; }
